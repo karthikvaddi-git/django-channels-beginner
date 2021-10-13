@@ -4,6 +4,10 @@ import json
 from asgiref.sync import async_to_sync
 
 class testconsumer(WebsocketConsumer):
+    def send_notification(self,event):
+        print(event)
+        print('connected in django send notification')
+
     def disconnect(self,*args,**kwargs):
         print('hello disconnected')
         # Called when the socket closes
@@ -18,9 +22,10 @@ class testconsumer(WebsocketConsumer):
 
         self.room_group_name = "test_group_name"
         async_to_sync(self.channel_layer.group_add)
-        (self.room_name, self.room_group_name)
+        (self.room_group_name,self.channel_name)
         self.accept()
         self.send(text_data=json.dumps({'status': 'connected from djagno channels '}))
+
 
 
 
